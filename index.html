@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Club sin nombre. Lo decides tú.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --chalk:#F4F6F1;
+  --paper:#FFFFFF;
+  --ink:#15201A;
+  --ink-2:#4B5A51;
+  --line:#D9DED6;
+  --grass:#2E6B4E;
+  --card:#F2C230;
+  --card-ink:#15201A;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --chalk:#0F1712;
+    --paper:#16211A;
+    --ink:#EEF2EC;
+    --ink-2:#A3B1A8;
+    --line:#2A3830;
+    --grass:#6FB58F;
+    --card:#F2C230;
+    --card-ink:#15201A;
+  }
+}
+:root[data-theme="dark"]{
+  --chalk:#0F1712;
+  --paper:#16211A;
+  --ink:#EEF2EC;
+  --ink-2:#A3B1A8;
+  --line:#2A3830;
+  --grass:#6FB58F;
+  --card:#F2C230;
+  --card-ink:#15201A;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px);}
+body{
+  background:var(--chalk);
+  color:var(--ink);
+  font-family:'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  font-variation-settings:"wdth" 100;
+  font-size:17px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{max-width:100%;}
+a{color:inherit;}
+:focus-visible{outline:2px solid var(--grass);outline-offset:3px;border-radius:2px;}
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important;transition:none !important;scroll-behavior:auto !important;}
+}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+.narrow{max-width:680px;}
+
+/* Display type */
+.display{
+  font-variation-settings:"wdth" 125;
+  font-weight:850;
+  letter-spacing:-0.02em;
+  line-height:0.98;
+}
+.condensed{font-variation-settings:"wdth" 70;}
+
+/* Header */
+.top{
+  position:sticky;
+  top:env(safe-area-inset-top,0px);
+  z-index:20;
+  background:color-mix(in srgb, var(--chalk) 88%, transparent);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:15px;}
+.brand svg{width:20px;height:23px;}
+.top-cta{
+  text-decoration:none;font-size:14px;font-weight:700;
+  padding:9px 16px;border-radius:999px;
+  background:var(--ink);color:var(--chalk);
+}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;padding:72px 0 88px;text-align:center;}
+.hero .pitch{position:absolute;inset:0;pointer-events:none;color:var(--line);}
+.hero .pitch svg{width:100%;height:100%;}
+.crest{width:min(200px,44vw);display:block;margin:0 auto 36px;position:relative;}
+.crest .shield{
+  fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linejoin:round;
+  stroke-dasharray:720;stroke-dashoffset:720;
+  animation:draw 1.4s cubic-bezier(.6,0,.2,1) .15s forwards;
+}
+.crest .qmark{
+  font-family:'Archivo',sans-serif;font-variation-settings:"wdth" 100;
+  font-weight:800;font-size:92px;fill:var(--ink);
+  opacity:0;animation:fade .5s ease 1.3s forwards;
+}
+.crest .qmark.lit{fill:var(--grass);transition:fill .4s ease;}
+@keyframes draw{to{stroke-dashoffset:0;}}
+@keyframes fade{to{opacity:1;}}
+
+.question{
+  min-height:2.1em;
+  font-size:clamp(34px,6.6vw,76px);
+  max-width:15ch;margin:0 auto;
+}
+.question span{display:inline-block;transition:opacity .28s ease, transform .28s ease;}
+.question span.out{opacity:0;transform:translateY(-10px);}
+.question span.in{opacity:0;transform:translateY(10px);}
+.hero-sub{
+  max-width:34rem;margin:26px auto 0;color:var(--ink-2);font-size:18px;
+}
+.hero-actions{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font:inherit;font-weight:750;font-size:16px;
+  padding:15px 26px;border-radius:999px;border:0;cursor:pointer;
+  background:var(--ink);color:var(--chalk);text-decoration:none;
+  transition:transform .15s ease;
+}
+.btn:hover{transform:translateY(-1px);}
+.btn .dot{width:10px;height:14px;background:var(--card);border-radius:2px;transform:rotate(8deg);}
+.link{font-weight:650;font-size:16px;text-decoration:underline;text-underline-offset:5px;text-decoration-color:var(--line);}
+.live{
+  margin-top:30px;font-size:14px;color:var(--ink-2);
+  display:inline-flex;align-items:center;gap:8px;
+}
+.live i{width:8px;height:8px;border-radius:50%;background:var(--grass);display:inline-block;}
+.live[hidden]{display:none;}
+
+/* Seam divider */
+.seam{display:block;width:100%;height:14px;color:var(--line);}
+
+/* Manifesto */
+.manifesto{padding:96px 0;position:relative;overflow:hidden;}
+.manifesto .circle{
+  position:absolute;right:-180px;top:50%;transform:translateY(-50%);
+  width:520px;height:520px;color:var(--line);pointer-events:none;
+}
+.rule{
+  font-size:clamp(28px,4.6vw,54px);
+  padding:28px 0;border-top:1px solid var(--line);
+  max-width:20ch;position:relative;
+}
+.rule:last-child{border-bottom:1px solid var(--line);}
+.rule small{
+  display:block;margin-top:12px;
+  font-family:'Archivo',sans-serif;font-variation-settings:"wdth" 100;
+  font-size:17px;font-weight:450;letter-spacing:0;line-height:1.5;color:var(--ink-2);max-width:36rem;
+}
+
+/* Section heads */
+.block{padding:96px 0;border-top:1px solid var(--line);}
+.h2{font-size:clamp(30px,4.4vw,50px);max-width:18ch;}
+.lead{color:var(--ink-2);max-width:36rem;margin-top:18px;font-size:18px;}
+
+/* Comparison */
+.versus{margin-top:52px;border-top:2px solid var(--ink);}
+.vs-head,.vs-row{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:24px;align-items:baseline;}
+.vs-head{padding:14px 0;font-size:14px;font-weight:700;color:var(--ink-2);border-bottom:1px solid var(--line);}
+.vs-head .us{color:var(--ink);}
+.vs-row{padding:20px 0;border-bottom:1px solid var(--line);}
+.vs-topic{font-weight:700;font-size:16px;}
+.vs-old{color:var(--ink-2);text-decoration:line-through;text-decoration-color:color-mix(in srgb, var(--ink-2) 60%, transparent);font-size:16px;}
+.vs-new{font-weight:650;font-size:16px;display:flex;gap:10px;align-items:baseline;}
+.vs-new::before{content:"";flex-shrink:0;width:8px;height:11px;background:var(--grass);border-radius:1.5px;transform:translateY(1px) rotate(8deg);}
+.vs-note{margin-top:22px;font-size:15px;color:var(--ink-2);max-width:40rem;}
+@media (max-width:720px){
+  .vs-head{display:none;}
+  .vs-row{grid-template-columns:1fr;gap:6px;}
+  .vs-old::before{content:"Un club normal: ";text-decoration:none;display:inline;}
+}
+
+/* Talent mission */
+.talent{background:var(--ink);color:var(--chalk);border-top:0;position:relative;overflow:hidden;}
+.talent .lead{color:color-mix(in srgb, var(--chalk) 72%, transparent);}
+.talent .h2{max-width:14ch;}
+.talent-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:start;}
+.pledges{margin-top:8px;}
+.pledge{padding:22px 0;border-top:1px solid color-mix(in srgb, var(--chalk) 16%, transparent);}
+.pledge:last-child{border-bottom:1px solid color-mix(in srgb, var(--chalk) 16%, transparent);}
+.pledge h3{font-size:18px;font-weight:750;margin-bottom:6px;}
+.pledge p{font-size:15.5px;color:color-mix(in srgb, var(--chalk) 70%, transparent);}
+.pathway{margin-top:40px;}
+.pathway svg{width:100%;height:auto;display:block;color:color-mix(in srgb, var(--chalk) 40%, transparent);}
+.pathway figcaption{font-size:14px;color:color-mix(in srgb, var(--chalk) 60%, transparent);margin-top:12px;}
+@media (max-width:820px){.talent-grid{grid-template-columns:1fr;gap:24px;}}
+
+/* Tiers */
+.tiers{margin-top:56px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink);}
+.tier{padding:32px 28px 36px 0;display:flex;flex-direction:column;}
+.tier + .tier{padding-left:28px;border-left:1px solid var(--line);}
+.tier-num{font-size:64px;line-height:1;}
+.tier h3{font-size:24px;font-weight:800;margin-top:18px;font-variation-settings:"wdth" 110;}
+.tier .who{color:var(--ink-2);font-size:15.5px;margin-top:8px;min-height:3.2em;}
+.share{margin:22px 0 6px;}
+.share-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;}
+.share-bar span{height:8px;border-radius:2px;background:var(--line);}
+.share-bar span.on{background:var(--grass);}
+.share-label{font-size:13px;color:var(--ink-2);margin-top:8px;}
+.perks{list-style:none;margin-top:18px;}
+.perks li{display:flex;gap:10px;font-size:15px;padding:7px 0;border-top:1px solid var(--line);}
+.perks li:first-child{border-top:0;}
+.perks svg{flex-shrink:0;width:14px;height:14px;margin-top:4px;color:var(--grass);}
+.perks .plus{font-weight:700;color:var(--ink);}
+.tier.top-tier{position:relative;}
+.tier.top-tier .badge{
+  align-self:flex-start;margin-top:14px;font-size:12.5px;font-weight:750;
+  background:var(--card);color:var(--card-ink);padding:4px 10px;border-radius:3px;transform:rotate(-2deg);
+}
+.footnote{margin-top:24px;font-size:13.5px;color:var(--ink-2);max-width:44rem;}
+@media (max-width:900px){
+  .tiers{grid-template-columns:1fr;}
+  .tier,.tier + .tier{padding:32px 0;border-left:0;border-top:1px solid var(--line);}
+  .tier:first-child{border-top:0;}
+  .tier .who{min-height:0;}
+}
+
+/* Join */
+.join{padding:96px 0 110px;border-top:1px solid var(--line);}
+.join-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:start;}
+@media (max-width:860px){.join-grid{grid-template-columns:1fr;gap:32px;}}
+.form{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:30px;}
+.field{margin-bottom:22px;}
+.field > label,.field > legend{display:block;font-size:14px;font-weight:700;margin-bottom:10px;}
+fieldset{border:0;}
+.field input[type=email],.field input[type=text]{
+  width:100%;font:inherit;font-size:16px;color:var(--ink);
+  background:transparent;border:0;border-bottom:2px solid var(--line);
+  padding:10px 2px;border-radius:0;
+}
+.field input[type=email]:focus,.field input[type=text]:focus{outline:none;border-bottom-color:var(--ink);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{position:relative;}
+.chip input{position:absolute;opacity:0;inset:0;cursor:pointer;}
+.chip span{
+  display:inline-block;padding:9px 15px;border-radius:999px;border:1.5px solid var(--line);
+  font-size:14.5px;font-weight:600;cursor:pointer;transition:background .15s ease,border-color .15s ease;
+}
+.chip input:checked + span{background:var(--ink);color:var(--chalk);border-color:var(--ink);}
+.chip input:focus-visible + span{outline:2px solid var(--grass);outline-offset:2px;}
+.hint{font-size:13px;color:var(--ink-2);margin-top:8px;}
+.submit{width:100%;justify-content:center;margin-top:6px;}
+.msg{margin-top:16px;font-size:14.5px;min-height:1.4em;}
+.msg.err{color:#B3261E;}
+.done{display:none;}
+.done.show{display:block;}
+.done h3{font-size:28px;line-height:1.1;}
+.done p{color:var(--ink-2);margin-top:10px;}
+.poll{margin-top:24px;}
+.poll-row{margin-top:14px;}
+.poll-top{display:flex;justify-content:space-between;font-size:14.5px;font-weight:650;}
+.poll-track{height:10px;background:var(--line);border-radius:3px;margin-top:6px;overflow:hidden;}
+.poll-fill{height:100%;background:var(--grass);width:0;transition:width .6s cubic-bezier(.3,0,.2,1);}
+.stats{display:flex;gap:36px;margin-top:36px;flex-wrap:wrap;}
+.stat b{display:block;font-size:48px;line-height:1;font-variant-numeric:tabular-nums;}
+.stat span{font-size:14px;color:var(--ink-2);}
+
+/* Footer */
+footer{padding:48px 0 64px;border-top:1px solid var(--line);text-align:center;}
+footer .goal{width:44px;height:26px;color:var(--ink-2);opacity:.55;display:block;margin:0 auto 16px;}
+footer p{font-size:13.5px;color:var(--ink-2);max-width:34rem;margin:0 auto;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Club sin nombre, inicio">
+      <svg viewBox="0 0 40 46" fill="none" aria-hidden="true"><path d="M4 6C4 3 8 2 20 2s16 1 16 4v16c0 10-8 17-16 21C12 39 4 32 4 22Z" stroke="currentColor" stroke-width="2.4"/><text x="20" y="29" text-anchor="middle" font-size="20" font-weight="800" fill="currentColor" font-family="Archivo, sans-serif">?</text></svg>
+      Club sin nombre
+    </a>
+    <a class="top-cta" href="#unirse">Unirme a la lista</a>
+  </div>
+</header>
+
+<main>
+
+<section class="hero" id="inicio">
+  <div class="pitch" aria-hidden="true">
+    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" fill="none">
+      <path d="M0 60 Q60 60 60 0" stroke="currentColor" stroke-width="2"/>
+      <path d="M1200 60 Q1140 60 1140 0" stroke="currentColor" stroke-width="2"/>
+      <rect x="420" y="560" width="360" height="160" stroke="currentColor" stroke-width="2"/>
+      <rect x="510" y="640" width="180" height="80" stroke="currentColor" stroke-width="2"/>
+      <path d="M520 560 Q600 500 680 560" stroke="currentColor" stroke-width="2"/>
+      <circle cx="600" cy="610" r="3" fill="currentColor"/>
+    </svg>
+  </div>
+  <div class="wrap">
+    <svg class="crest" viewBox="0 0 200 224" aria-hidden="true">
+      <path class="shield" d="M20 30C20 15 40 10 100 10s80 5 80 20v80c0 50-40 85-80 105C60 195 20 160 20 110Z"/>
+      <text class="qmark" id="qmark" x="100" y="138" text-anchor="middle">?</text>
+    </svg>
+    <h1 class="question display" aria-label="Un club de fútbol que todavía no tiene nombre. Lo decides tú.">
+      <span id="rotator" aria-hidden="true">¿Cómo se llama este club?</span>
+    </h1>
+    <p class="hero-sub">Un club de fútbol que nace desde cero, sin dueño, con socios que votan de verdad y una misión clara: descubrir y empujar talento joven. Todo el proceso se graba y se cuenta, desde el primer día.</p>
+    <div class="hero-actions">
+      <a class="btn" href="#unirse"><span class="dot" aria-hidden="true"></span>Quiero ser socio fundador</a>
+      <a class="link" href="#diferente">Qué lo hace distinto</a>
+    </div>
+    <p class="live" id="heroLive" hidden><i aria-hidden="true"></i><span id="heroLiveText"></span></p>
+  </div>
+</section>
+
+<svg class="seam" viewBox="0 0 1200 14" preserveAspectRatio="none" aria-hidden="true">
+  <line x1="0" y1="7" x2="1200" y2="7" stroke="currentColor" stroke-width="1.5"/>
+  <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" id="stitches"></g>
+</svg>
+
+<section class="manifesto" aria-labelledby="reglas">
+  <svg class="circle" viewBox="0 0 520 520" fill="none" aria-hidden="true">
+    <circle cx="260" cy="260" r="200" stroke="currentColor" stroke-width="2"/>
+    <circle cx="260" cy="260" r="4" fill="currentColor"/>
+    <line x1="0" y1="260" x2="520" y2="260" stroke="currentColor" stroke-width="2"/>
+  </svg>
+  <div class="wrap">
+    <h2 id="reglas" class="lead" style="margin:0 0 20px;font-weight:700;color:var(--ink)">Tres reglas que no se votan</h2>
+    <p class="rule display condensed">Nunca vamos a comprar estrellas. Las vamos a formar.
+      <small>No existe un fichaje millonario en nuestro futuro. Existe un chico de 15 años que nadie ha visto todavía.</small></p>
+    <p class="rule display condensed">Nadie es dueño del club. Lo somos todos.
+      <small>Cada socio tiene una parte real del club y un voto real en las decisiones que en otros equipos toma una sola persona.</small></p>
+    <p class="rule display condensed">No esperamos a una liga para empezar.
+      <small>La historia arranca con una cámara encendida. Vas a ver cómo nace un club, no solo cómo juega.</small></p>
+  </div>
+</section>
+
+<section class="block" id="diferente" aria-labelledby="vs-title">
+  <div class="wrap">
+    <h2 id="vs-title" class="h2 display">Todo lo que un club normal te esconde, aquí lo decides.</h2>
+    <p class="lead">En casi cualquier club, el hincha paga, canta y espera. Aquí participa.</p>
+
+    <div class="versus" role="table" aria-label="Comparación entre un club normal y este club">
+      <div class="vs-head" role="row">
+        <span role="columnheader">La decisión</span>
+        <span role="columnheader">Un club normal</span>
+        <span role="columnheader" class="us">Este club</span>
+      </div>
+      <div class="vs-row" role="row">
+        <span class="vs-topic" role="cell">El nombre y el escudo</span>
+        <span class="vs-old" role="cell">Lo elige el dueño</span>
+        <span class="vs-new" role="cell">Lo votan los socios</span>
+      </div>
+      <div class="vs-row" role="row">
+        <span class="vs-topic" role="cell">En qué se gasta el dinero</span>
+        <span class="vs-old" role="cell">Una junta a puerta cerrada</span>
+        <span class="vs-new" role="cell">Presupuesto votado y publicado</span>
+      </div>
+      <div class="vs-row" role="row">
+        <span class="vs-topic" role="cell">Cómo se arma el equipo</span>
+        <span class="vs-old" role="cell">Comprando jugadores hechos</span>
+        <span class="vs-new" role="cell">Formando talento joven desde abajo</span>
+      </div>
+      <div class="vs-row" role="row">
+        <span class="vs-topic" role="cell">Quién puede probarse</span>
+        <span class="vs-old" role="cell">Quien tenga contactos o agente</span>
+        <span class="vs-new" role="cell">Cualquiera, en convocatoria abierta y gratuita</span>
+      </div>
+      <div class="vs-row" role="row">
+        <span class="vs-topic" role="cell">De quién es el club</span>
+        <span class="vs-old" role="cell">De un apellido o de un fondo</span>
+        <span class="vs-new" role="cell">De sus socios, cada uno con una parte</span>
+      </div>
+      <div class="vs-row" role="row">
+        <span class="vs-topic" role="cell">Lo que ves como hincha</span>
+        <span class="vs-old" role="cell">El partido del domingo</span>
+        <span class="vs-new" role="cell">Todo el proceso, capítulo a capítulo</span>
+      </div>
+    </div>
+    <p class="vs-note">Lo único que no se vota es lo que pasa dentro de la cancha: el once titular, la táctica y los cambios son del cuerpo técnico. Los socios deciden el rumbo del club, no el partido.</p>
+  </div>
+</section>
+
+<section class="block talent" aria-labelledby="talent-title">
+  <div class="wrap talent-grid">
+    <div>
+      <h2 id="talent-title" class="h2 display">Nuestra cantera es nuestro mercado de fichajes.</h2>
+      <p class="lead">No vamos a salir a comprar al jugador que ya está hecho. Nuestra razón de existir es encontrar a los que todavía no ha descubierto nadie, darles una oportunidad real y empujarlos lo más lejos posible. Si algún día uno de los nuestros llega a un club grande, esa será nuestra copa.</p>
+      <figure class="pathway">
+        <svg viewBox="0 0 480 90" fill="none" aria-hidden="true">
+          <line x1="20" y1="45" x2="460" y2="45" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 6"/>
+          <circle cx="30" cy="45" r="7" fill="#F2C230"/>
+          <circle cx="170" cy="45" r="7" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="310" cy="45" r="7" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="450" cy="45" r="11" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="450" cy="45" r="4" fill="currentColor"/>
+          <text x="30" y="80" text-anchor="middle" font-size="12" fill="currentColor" font-family="Archivo, sans-serif">Convocatoria</text>
+          <text x="170" y="80" text-anchor="middle" font-size="12" fill="currentColor" font-family="Archivo, sans-serif">Formación</text>
+          <text x="310" y="80" text-anchor="middle" font-size="12" fill="currentColor" font-family="Archivo, sans-serif">Primer equipo</text>
+          <text x="450" y="80" text-anchor="middle" font-size="12" fill="currentColor" font-family="Archivo, sans-serif">Lo más lejos posible</text>
+        </svg>
+        <figcaption>El camino de cada jugador, contado en la serie.</figcaption>
+      </figure>
+    </div>
+    <div class="pledges">
+      <div class="pledge">
+        <h3>Probarse nunca cuesta</h3>
+        <p>Las convocatorias son abiertas y gratuitas. Sin agentes, sin intermediarios, sin pagar por una oportunidad.</p>
+      </div>
+      <div class="pledge">
+        <h3>Primero la persona, después el jugador</h3>
+        <p>Consentimiento de los padres, adultos verificados, y estudio por delante del fútbol. Un club que forma jóvenes tiene que protegerlos antes que nada.</p>
+      </div>
+      <div class="pledge">
+        <h3>Crecer también significa dejar ir</h3>
+        <p>No vamos a frenar a nadie para quedárnoslo. Si un jugador tiene la oportunidad de dar el salto, el club lo empuja.</p>
+      </div>
+      <div class="pledge">
+        <h3>El talento está en todas partes</h3>
+        <p>Buscamos en barrios, parques y ligas que nadie mira. La primera convocatoria es local; la ambición no tiene fronteras.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="niveles" aria-labelledby="tiers-title">
+  <div class="wrap">
+    <h2 id="tiers-title" class="h2 display">Tres formas de ser dueño.</h2>
+    <p class="lead">Todos los socios tienen una parte del club y todos votan. Mientras más alto el nivel, más grande tu parte y más cerca estás del corazón del club.</p>
+
+    <div class="tiers">
+      <article class="tier">
+        <span class="tier-num display">1</span>
+        <h3>Hincha fundador</h3>
+        <p class="who">Para quien quiere estar desde el día cero y decidir la identidad del club.</p>
+        <div class="share" aria-label="Tu parte del club: pequeña">
+          <div class="share-bar" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
+          <p class="share-label">Tu parte del club</p>
+        </div>
+        <ul class="perks">
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Participación en la propiedad del club, registrada a tu nombre</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Voto en el nombre, el escudo y los colores</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Descuentos en entradas y acceso gratis en ocasiones especiales</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Registro permanente como fundador del club</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Reporte trimestral de avance</span></li>
+        </ul>
+      </article>
+
+      <article class="tier">
+        <span class="tier-num display">2</span>
+        <h3>Socio pleno</h3>
+        <p class="who">Para quien quiere voz sobre el dinero y el rumbo del club.</p>
+        <div class="share" aria-label="Tu parte del club: mediana">
+          <div class="share-bar" aria-hidden="true"><span class="on"></span><span class="on"></span><span></span></div>
+          <p class="share-label">Tu parte del club</p>
+        </div>
+        <ul class="perks">
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span class="plus">Todo lo del nivel 1</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Una parte mayor del club, proporcional a tu aporte</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Voto en el presupuesto de cantera y cuerpo técnico</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Voto sobre qué se hace con las utilidades del club</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Derecho a proponer iniciativas a la asamblea</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Descuento permanente en todos los partidos en casa</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Capítulos de la serie antes que nadie y reporte financiero detallado</span></li>
+        </ul>
+      </article>
+
+      <article class="tier top-tier">
+        <span class="tier-num display">3</span>
+        <h3>Junta base</h3>
+        <p class="who">Para quien quiere estar más cerca del club y de sus decisiones más importantes.</p>
+        <span class="badge">Cupos limitados</span>
+        <div class="share" aria-label="Tu parte del club: la más grande">
+          <div class="share-bar" aria-hidden="true"><span class="on"></span><span class="on"></span><span class="on"></span></div>
+          <p class="share-label">Tu parte del club</p>
+        </div>
+        <ul class="perks">
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span class="plus">Todo lo de los niveles 1 y 2</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>La mayor parte del club disponible en la fundación</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Abono incluido para todos los partidos en casa</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Encuentros privados con el equipo fundador varias veces al año</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Invitaciones a eventos exclusivos del club</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Participación en el comité consultivo que acompaña las grandes decisiones</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Tu nombre en los créditos de la serie y en la placa fundacional</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.8l2.6 1.9-1 3H6.4l-1-3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg><span>Prioridad en futuras rondas de socios</span></li>
+        </ul>
+      </article>
+    </div>
+    <p class="footnote">Los porcentajes exactos de participación, el aporte de cada nivel y la forma legal del club se definen en el acta de constitución, que también votan los primeros socios. Anotarte en la lista no te compromete a nada.</p>
+  </div>
+</section>
+
+<section class="join" id="unirse" aria-labelledby="join-title">
+  <div class="wrap join-grid">
+    <div>
+      <h2 id="join-title" class="h2 display">El club todavía no existe. Por eso es el momento.</h2>
+      <p class="lead">Anótate en la lista de socios fundadores. Te avisamos cuando abra la primera asamblea, y tu primer voto empieza aquí mismo.</p>
+      <div class="stats" id="stats" hidden>
+        <div class="stat"><b id="statCount">0</b><span>personas en la lista</span></div>
+        <div class="stat"><b id="statCountries">0</b><span>países</span></div>
+      </div>
+    </div>
+
+    <div class="form">
+      <form id="joinForm" novalidate>
+        <div class="field">
+          <label for="email">Tu correo</label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="nombre@correo.com" required>
+        </div>
+
+        <fieldset class="field">
+          <legend>¿Qué nivel te interesa?</legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="tier" value="Hincha fundador" checked><span>Hincha fundador</span></label>
+            <label class="chip"><input type="radio" name="tier" value="Socio pleno"><span>Socio pleno</span></label>
+            <label class="chip"><input type="radio" name="tier" value="Junta base"><span>Junta base</span></label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="country">¿Desde qué país nos sigues?</label>
+          <input type="text" id="country" name="country" autocomplete="country-name" placeholder="Colombia, Estados Unidos, México...">
+        </div>
+
+        <fieldset class="field">
+          <legend>Tu primer voto: ¿qué debería decidir primero el club?</legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="first" value="Nombre" checked><span>El nombre</span></label>
+            <label class="chip"><input type="radio" name="first" value="Escudo"><span>El escudo</span></label>
+            <label class="chip"><input type="radio" name="first" value="Colores"><span>Los colores</span></label>
+            <label class="chip"><input type="radio" name="first" value="Sede"><span>La ciudad sede</span></label>
+          </div>
+          <p class="hint">Los resultados se muestran en vivo después de anotarte.</p>
+        </fieldset>
+
+        <button type="submit" class="btn submit" id="submitBtn"><span class="dot" aria-hidden="true"></span>Unirme a la lista</button>
+        <p class="msg" id="msg" role="status"></p>
+      </form>
+
+      <div class="done" id="done" aria-live="polite">
+        <h3 class="display condensed">Ya eres parte de la fundación.</h3>
+        <p id="doneText">Te escribiremos cuando abra la primera asamblea de socios.</p>
+        <div class="poll" id="poll" hidden>
+          <p style="font-weight:700;font-size:15px;">Así va la primera votación</p>
+          <div id="pollRows"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <svg class="goal" viewBox="0 0 44 26" fill="none" aria-hidden="true">
+    <path d="M3 24V2h38v22" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M3 8h38M3 14h38M3 20h38M10 2v22M17 2v22M24 2v22M31 2v22M38 2v22" stroke="currentColor" stroke-width=".6"/>
+  </svg>
+  <p>Club sin nombre. Proyecto en fundación, ciudad sede por anunciar. Esta página es una lista de interés, no una oferta de inversión ni de valores.</p>
+</footer>
+
+<script>
+/* CONFIGURACIÓN DEL WAITLIST
+   Pega aquí la URL de tu servicio de formularios (por ejemplo Formspree,
+   Getform, Basin o tu propio backend). El formulario envía un POST con JSON:
+   { email, tier, country, first, joinedAt }.
+   Si la dejas vacía, la página muestra un aviso en lugar de enviar. */
+const FORM_ENDPOINT = "";
+
+(function(){
+  // Stitches on the seam divider
+  var g = document.getElementById('stitches');
+  var s = '';
+  for (var x = 12; x < 1200; x += 22){ s += '<line x1="'+x+'" y1="2" x2="'+(x+6)+'" y2="12"/>'; }
+  g.innerHTML = s;
+
+  // Hero: rotating questions, one orchestrated moment
+  var phrases = [
+    '¿Cómo se llama este club?',
+    '¿De qué color es su camiseta?',
+    '¿Quién será su primer 10?',
+    '¿Quién toma las decisiones?',
+    'Lo decides tú.'
+  ];
+  var el = document.getElementById('rotator');
+  var q = document.getElementById('qmark');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce){
+    el.textContent = phrases[phrases.length - 1];
+    q.classList.add('lit');
+  } else {
+    var i = 0;
+    var step = function(){
+      i++;
+      if (i >= phrases.length) return;
+      el.classList.add('out');
+      setTimeout(function(){
+        el.textContent = phrases[i];
+        el.classList.remove('out');
+        el.classList.add('in');
+        requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.remove('in'); }); });
+        if (i === phrases.length - 1){ q.classList.add('lit'); return; }
+        setTimeout(step, 1500);
+      }, 280);
+    };
+    setTimeout(step, 2300);
+  }
+
+  // Waitlist
+  var form = document.getElementById('joinForm');
+  var msg = document.getElementById('msg');
+  var btn = document.getElementById('submitBtn');
+  var done = document.getElementById('done');
+  var pollRows = document.getElementById('pollRows');
+  var options = [['Nombre','El nombre'],['Escudo','El escudo'],['Colores','Los colores'],['Sede','La ciudad sede']];
+  var db = null, uid = null, tallyDocs = [], ready = false;
+
+  function norm(c){ return (c || '').trim().toLowerCase(); }
+
+  function renderStats(){
+    var count = tallyDocs.length;
+    var countries = {};
+    var votes = {Nombre:0,Escudo:0,Colores:0,Sede:0};
+    tallyDocs.forEach(function(d){
+      var data = d.data() || {};
+      var c = norm(data.country);
+      if (c) countries[c] = true;
+      if (votes.hasOwnProperty(data.first)) votes[data.first]++;
+    });
+    var nCountries = Object.keys(countries).length;
+    if (count > 0){
+      document.getElementById('stats').hidden = false;
+      document.getElementById('statCount').textContent = count;
+      document.getElementById('statCountries').textContent = nCountries;
+      document.getElementById('heroLive').hidden = false;
+      document.getElementById('heroLiveText').textContent = count + (count === 1 ? ' persona ya está' : ' personas ya están') + ' en la lista de fundadores';
+    }
+    var total = Math.max(1, count);
+    pollRows.innerHTML = '';
+    options.forEach(function(o){
+      var pct = Math.round((votes[o[0]] / total) * 100);
+      var row = document.createElement('div');
+      row.className = 'poll-row';
+      var top = document.createElement('div'); top.className = 'poll-top';
+      var a = document.createElement('span'); a.textContent = o[1];
+      var b = document.createElement('span'); b.textContent = pct + '%';
+      top.appendChild(a); top.appendChild(b);
+      var track = document.createElement('div'); track.className = 'poll-track';
+      var fill = document.createElement('div'); fill.className = 'poll-fill';
+      track.appendChild(fill);
+      row.appendChild(top); row.appendChild(track);
+      pollRows.appendChild(row);
+      requestAnimationFrame(function(){ fill.style.width = pct + '%'; });
+    });
+  }
+
+  function showDone(tier){
+    form.style.display = 'none';
+    done.classList.add('show');
+    if (tier) document.getElementById('doneText').textContent = 'Te anotaste como ' + tier + '. Te escribiremos cuando abra la primera asamblea de socios.';
+    renderStats();
+  }
+
+  // Remembered on this device only
+  try {
+    var saved = localStorage.getItem('club-waitlist-tier');
+    if (saved) showDone(saved);
+  } catch(e) {}
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var email = document.getElementById('email').value.trim();
+    var country = document.getElementById('country').value.trim().slice(0,60);
+    var tier = form.querySelector('input[name=tier]:checked').value;
+    var first = form.querySelector('input[name=first]:checked').value;
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      msg.textContent = 'Escribe un correo válido, por ejemplo nombre@correo.com.';
+      msg.className = 'msg err';
+      document.getElementById('email').focus();
+      return;
+    }
+    if (!FORM_ENDPOINT){
+      msg.textContent = 'Las inscripciones se abren muy pronto. Guarda esta página y vuelve en unos días.';
+      msg.className = 'msg err';
+      return;
+    }
+    btn.disabled = true;
+    msg.textContent = 'Guardando tu lugar...';
+    msg.className = 'msg';
+    try {
+      var res = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email: email, tier: tier, country: country, first: first, joinedAt: new Date().toISOString() })
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      try { localStorage.setItem('club-waitlist-tier', tier); } catch(err) {}
+      msg.textContent = '';
+      showDone(tier);
+    } catch(err){
+      btn.disabled = false;
+      msg.textContent = 'No se pudo guardar tu lugar. Revisa tu conexión y vuelve a intentarlo.';
+      msg.className = 'msg err';
+    }
+  });
+})();
+</script>
+</body>
+</html>
